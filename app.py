@@ -2,9 +2,8 @@ import os
 import joblib
 import pandas as pd
 import streamlit as st
-
-from model_downloader import download_models
-download_models()
+# 🛠️ Fix: Import the correct function names: download_models and ensure_one
+from model_downloader import download_models, ensure_one 
 
 st.set_page_config(page_title="EMI Risk Assessment", page_icon="🏦", layout="centered")
 
@@ -58,11 +57,13 @@ def _safe_load_pickle(basename: str):
 # -------- Sidebar: maintenance
 st.sidebar.header("Maintenance")
 if st.sidebar.button("🔄 Refresh models (force re-download)"):
-    download_all(force=True)
+    # 🛠️ Fix: Changed download_all to download_models
+    download_models(force=True)
     st.sidebar.success("Models refreshed. Reload the page.")
 
 with st.spinner("Preparing models..."):
-    download_all(force=False)
+    # 🛠️ Fix: Changed download_all to download_models
+    download_models(force=False)
 
 # Load artifacts safely
 elig_model        = _safe_load_pickle("best_eligibility_model.pkl")
