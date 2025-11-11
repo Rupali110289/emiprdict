@@ -8,7 +8,7 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 
 # Direct-download URLs (already converted to uc?id=...)
 DRIVE_URLS = {
-    "best_eligibility_model.pkl": "https://drive.google.com/uc?export=download&id=1Yn2YujwiErvHphboPIndWjoNygq1yErR",
+    "best_eligibility_model.pkl": "https://drive.google.com/uc?export=download&id=1KRxxH8-TZRKRwcsm5SPM7sCaWsiw3PwA",
     "best_max_emi_model.pkl":     "https://drive.google.com/uc?export=download&id=1nJ3jai1SgddSF-eYOue6nchQKlYevb81",
     "eligibility_features.pkl":   "https://drive.google.com/uc?export=download&id=1I7-Z8O4vL6DbyUnNrxdYNv-8Mfzy0Iir",
     "eligibility_scaler.pkl":     "https://drive.google.com/uc?export=download&id=1-hMBWeW02_I_kxDi6CG0ImDllWOuL_eb",
