@@ -14,9 +14,11 @@ DRIVE_URLS = {
 }
 
 def download_models():
-    for filename, url in DRIVE_URLS.items():
-        out_path = os.path.join(MODEL_DIR, filename)
-        if not os.path.exists(out_path):
-            print(f"⬇ Downloading {filename}...")
-            gdown.download(url, out_path, quiet=False)
+    """Download models if missing"""
+    for fname, url in DRIVE_URLS.items():
+        out = os.path.join(MODEL_DIR, fname)
+        if not os.path.exists(out):
+            print(f"⬇ Downloading: {fname}")
+            gdown.download(url, out, quiet=False)
 
+    print("✅ All models downloaded.")
