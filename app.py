@@ -3,7 +3,8 @@ import joblib
 import pandas as pd
 import streamlit as st
 
-from model_downloader import download_all, ensure_one
+from model_downloader import download_models
+download_models()
 
 st.set_page_config(page_title="EMI Risk Assessment", page_icon="🏦", layout="centered")
 
