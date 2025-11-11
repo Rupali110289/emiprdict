@@ -3,7 +3,7 @@ import joblib
 import pandas as pd
 import streamlit as st
 
-# 🛠️ FIX: Import the necessary functions from model_downloader
+# Import both functions now that ensure_one exists
 from model_downloader import download_models, ensure_one
 
 st.set_page_config(page_title="EMI Risk Assessment", page_icon="🏦", layout="centered")
@@ -40,12 +40,10 @@ def _safe_load_pickle(basename: str):
     Try load → if fails, force redownload that file and try again.
     Shows a Streamlit error if still failing.
     """
-    # ensure_one is now correctly imported
     path = ensure_one(basename, force=False)
     try:
         return joblib.load(path)
-    except Exception as e1:
-        # force re-download and try again
+    except Exception:
         path = ensure_one(basename, force=True)
         try:
             return joblib.load(path)
@@ -59,12 +57,10 @@ def _safe_load_pickle(basename: str):
 # -------- Sidebar: maintenance
 st.sidebar.header("Maintenance")
 if st.sidebar.button("🔄 Refresh models (force re-download)"):
-    # 🛠️ FIX: Correct function name is download_models, not download_all
     download_models(force=True)
     st.sidebar.success("Models refreshed. Reload the page.")
 
 with st.spinner("Preparing models..."):
-    # 🛠️ FIX: Correct function name is download_models, not download_all
     download_models(force=False)
 
 # Load artifacts safely
@@ -78,8 +74,6 @@ emi_features      = _safe_load_pickle("emi_features.pkl")
 # -------- UI
 st.title("🏦 EMI Eligibility & Max EMI Prediction")
 
-# Since this is the main page and you have a 'pages' folder, 
-# you should set the default mode or guide the user.
 mode = st.radio("Choose task:", ["EMI Eligibility", "Max EMI Amount"])
 
 st.subheader("📋 Enter Details")
@@ -134,7 +128,6 @@ if st.button("🔍 Predict"):
         Xs = elig_scaler.transform(X)
         y = elig_model.predict(Xs)[0]
         st.success("✅ Eligible" if y == 1 else "❌ Not Eligible")
-
     else:
         X = pd.DataFrame([feats])[emi_features]
         Xs = emi_scaler.transform(X)
